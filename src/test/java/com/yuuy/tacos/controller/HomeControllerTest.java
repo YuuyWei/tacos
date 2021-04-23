@@ -15,9 +15,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-// RunWith is Replaced by ExtendWith
+// @RunWith is replaced with @ExtendWith
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(HomeController.class)
 class HomeControllerTest {
 
     @Autowired
