@@ -50,7 +50,9 @@ public class DesignTacoController {
     public String processDesign(@Valid Taco design, Errors errors, Model model,
                                 @ModelAttribute Order order) {
         if (errors.hasErrors()) {
-            List<Ingredient> ingredients = ingredientRepository.findAll();
+            List<Ingredient> ingredients = new ArrayList<>();
+
+            ingredientRepository.findAll().forEach(ingredient -> ingredients.add(ingredient));
 
             Ingredient.Type[] types = Ingredient.Type.values();
             for (Ingredient.Type x : types) {
@@ -77,6 +79,7 @@ public class DesignTacoController {
 
         ingredientRepository.findAll().forEach(ingredient -> ingredients.add(ingredient));
 
+        ingredients.forEach(x -> log.info(x.toString()));
         Ingredient.Type[] types = Ingredient.Type.values();
         for (Ingredient.Type type :
                 types) {
