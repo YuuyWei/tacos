@@ -1,4 +1,4 @@
-package com.yuuy.tacos.entity;
+package com.yuuy.tacos.entities;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
