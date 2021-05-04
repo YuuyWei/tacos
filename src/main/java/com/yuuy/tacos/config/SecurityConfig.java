@@ -15,15 +15,21 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    DataSource dataSource;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder());
+                .ldapAuthentication()
+                    .userSearchBase("ou=people")
+                    .userSearchFilter("(uid={0})")
+                    .groupSearchBase("ou=groups")
+                    .groupSearchFilter("member={0}")
+                    .passwordCompare()
+                    .passwordEncoder(new BCryptPasswordEncoder())
+                    .passwordAttribute("passcode")
+                    .and()
+                    .contextSource()
+                        .root("dc=tacocloud,dc=com")
+                        .ldif("classpath:users.ldif");
     }
 
     private static PasswordEncoder passwordEncoder() {
